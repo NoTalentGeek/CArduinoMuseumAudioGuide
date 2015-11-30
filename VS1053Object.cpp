@@ -48,4 +48,4 @@ void                        VS1053Object::VolumeVoid                    (){
 }
 void                        VS1053Object::VolumeDownVoid                (){ volumeInt = volumeInt + volumeResInt; VolumeVoid(); }
 void                        VS1053Object::VolumeUpVoid                  (){ volumeInt = volumeInt - volumeResInt; VolumeVoid(); }
-Adafruit_VS1053_FilePlayer  VS1053Object::GetAdafruitVS1053FilePlayer   (){ return filePlayerObject; }
+Adafruit_VS1053_FilePlayer& VS1053Object::GetAdafruitVS1053FilePlayer   (){ return filePlayerObject; }

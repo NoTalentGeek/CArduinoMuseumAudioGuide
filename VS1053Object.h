@@ -15,7 +15,7 @@ class       VS1053Object{
                 void                        VolumeDownVoid              ();
                 void                        VolumeUpVoid                ();
                 void                        VolumeVoid                  ();
-                Adafruit_VS1053_FilePlayer  GetAdafruitVS1053FilePlayer ();
+                Adafruit_VS1053_FilePlayer& GetAdafruitVS1053FilePlayer ();
 
 };
 #endif
