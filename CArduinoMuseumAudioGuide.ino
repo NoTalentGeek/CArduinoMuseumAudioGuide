@@ -31,16 +31,14 @@ void        setup                                                               
                 Serial                                                          .begin(9600);
                 rfidReaderObject                                                .SetupVoid();
                 vs1053Object                                                    .SetupVoid();
-                //EstablishProcessingConnection                                 ();
+                EstablishProcessingConnection                                   ();
 
-                /*
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileWelcomeToCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileMuseumCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileSampleCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFilePleaseVisitAndTapCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileAnyCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileExhibitionCharArray);
-                */
 
 }
 void        loop                                                                (){
