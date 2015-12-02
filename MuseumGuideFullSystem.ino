@@ -5,6 +5,7 @@
 #define                     PIN_VOLUME_DOWN                                     22                                 /*Device volume down    button      pin.*/
 #define                     PIN_VOLUME_UP                                       24                                 /*Device volume up      button      pin.*/
 
+        boolean             justDonePlayingAudioFileBoolean                     = false;
         char                audioFileAnyCharArray               [10]            = "92.mp3";
         char                audioFileExhibitionCharArray        [10]            = "93.mp3";
         char                audioFileExplanationCharArray       [10]            = "94.mp3";
@@ -30,41 +31,46 @@ void        setup                                                               
                 Serial                                                          .begin(9600);
                 rfidReaderObject                                                .SetupVoid();
                 vs1053Object                                                    .SetupVoid();
-                EstablishProcessingConnection                                   ();
+                //EstablishProcessingConnection                                 ();
 
+                /*
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileWelcomeToCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileMuseumCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileSampleCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFilePleaseVisitAndTapCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileAnyCharArray);
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileExhibitionCharArray);
+                */
 
 }
 void        loop                                                                (){
 
-                while(vs1053Object.GetPlayingMusicBool() == true ){ BothLoopVoid(); }
-                while(vs1053Object.GetPlayingMusicBool() == false){ BothLoopVoid(); }
+                if(vs1053Object.GetPlayingMusicBool()  == false){ BothLoopVoid(); }
 
 }
 void        BothLoopVoid                                                        (){
 
-                exhibitionReceiveIndexInt                                       = rfidReaderObject.LoopVoid(vs1053Object.GetPlayingMusicBool());
-                if(exhibitionReceiveIndexInt != -1)                             { exhibitionReceiveIndexSaveInt = exhibitionReceiveIndexInt; }
-                MoveExhibitionVoid                                              ();
+                exhibitionReceiveIndexInt                                   = rfidReaderObject.LoopVoid(vs1053Object.GetPlayingMusicBool());
+                if(exhibitionReceiveIndexInt != -1)                         { exhibitionReceiveIndexSaveInt = exhibitionReceiveIndexInt; }
+                MoveExhibitionVoid                                          ();
 
-                //volumeDownButtonObject                                        .ButtonVolumeDownLoopVoid   (vs1053Object);
-                //volumeUpButtonObject                                          .ButtonVolumeUpLoopVoid     (vs1053Object);
+                //volumeDownButtonObject                                    .ButtonVolumeDownLoopVoid   (vs1053Object);
+                //volumeUpButtonObject                                      .ButtonVolumeUpLoopVoid     (vs1053Object);
 
+                if( justDonePlayingAudioFileBoolean    == true ){
+                    Serial                                                  .println("DONE_PLAYING_AUDIO_FILE");
+                    justDonePlayingAudioFileBoolean                         =  false;
+                }
                 if(Serial.available() > 0){
-                    String   inputString                                        = Serial.readString                                         ();
-                    if      (inputString == "PLAY_EXHIBITION")                  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileExhibitionCharArray)                          ; }
-                    if      (inputString == "PLAY_EXHIBITION_VISITED")          { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (AudioIndexCharArray(exhibitionReceiveIndexSaveInt))    ; exhibitionReceiveIndexSaveInt = -1; }
-                    if      (inputString == "PLAY_EXPLANATION")                 { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileExplanationCharArray)                         ; }
-                    if      (inputString == "PLAY_OR")                          { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileOrCharArray)                                  ; }
-                    if      (inputString == "PLAY_PLEASE_VISIT_AND_TAP")        { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFilePleaseVisitAndTapCharArray)                   ; }
-                    if      (inputString == "PLAY_WELCOME")                     { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileWelcomeToCharArray)                           ; }
+                    String   inputString                                    = Serial.readString                         ();
+                    if      ((inputString == "PLAY_EXHIBITION")             && (justDonePlayingAudioFileBoolean == false))  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileExhibitionCharArray)                          ; justDonePlayingAudioFileBoolean = true; }
+                    if      ((inputString == "PLAY_EXHIBITION_VISITED")     && (justDonePlayingAudioFileBoolean == false))  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (AudioIndexCharArray(exhibitionReceiveIndexSaveInt))    ; justDonePlayingAudioFileBoolean = true; exhibitionReceiveIndexSaveInt = -1; }
+                    if      ((inputString == "PLAY_EXPLANATION")            && (justDonePlayingAudioFileBoolean == false))  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileExplanationCharArray)                         ; justDonePlayingAudioFileBoolean = true; }
+                    if      ((inputString == "PLAY_OR")                     && (justDonePlayingAudioFileBoolean == false))  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileOrCharArray)                                  ; justDonePlayingAudioFileBoolean = true; }
+                    if      ((inputString == "PLAY_PLEASE_VISIT_AND_TAP")   && (justDonePlayingAudioFileBoolean == false))  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFilePleaseVisitAndTapCharArray)                   ; justDonePlayingAudioFileBoolean = true; }
+                    if      ((inputString == "PLAY_WELCOME")                && (justDonePlayingAudioFileBoolean == false))  { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (audioFileWelcomeToCharArray)                           ; justDonePlayingAudioFileBoolean = true; }
                     for     (int i = audioFileIndexMinInt; i <= audioFileIndexMaxInt; i ++){
-                                if(inputString == String(i))                    { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (AudioIndexCharArray(i))                                ; }
+                                if(inputString == String(i))                    { vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile   (AudioIndexCharArray(i))                                ; justDonePlayingAudioFileBoolean = true; }
                     }
                 }
 
