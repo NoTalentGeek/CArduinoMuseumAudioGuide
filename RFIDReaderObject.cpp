@@ -37,14 +37,14 @@ int             RFIDReaderObject::LoopVoid                                      
                                 tagUnknownCharArray     [tagByteCounterInt] = tagByteReadInt;
                                 tagUnknownIntArray      [tagByteCounterInt] = tagByteReadInt;
                                 tagByteCounterInt                           ++;
-                                Serial.print                                (tagByteReadInt);
-                                if(tagByteCounterInt != byteNettoInt)       { Serial.print(" "); }
+                                //Serial.print                              (tagByteReadInt);
+                                //if(tagByteCounterInt != byteNettoInt)     { Serial.print(" "); }
                             }
                             if(
                                 tagByteReadInt      == 3
                             ){
                                 tagReadBool         =  false;
-                                Serial.println      (".");
+                                //Serial.println    (".");
                             }
                         }
                         }
@@ -77,16 +77,16 @@ int             RFIDReaderObject::LoopVoid                                      
                     for(int i = 0; i < byteNettoInt; i ++)                      { tagUnknownCharArray[i] = 0; }
 
                          if(tagRegisteredBool                                   == true ){
-                            Serial.print                                        ("THIS CARD INDEX IS ");
-                            Serial.print                                        (tagCounterInt);
-                            Serial.println                                      (".");
+                            //Serial.print                                      ("THIS CARD INDEX IS ");
+                            //Serial.print                                      (tagCounterInt);
+                            //Serial.println                                    (".");
                             lastMatchedIndexInt                                 =  tagCounterInt;
-                                 if(lastMatchedIndexInt == 0)                   { exhibitionReceivedNameAltString = "EXH_XXX";}
-                            else if(lastMatchedIndexInt == 1)                   { exhibitionReceivedNameAltString = "EXH_XXX";}
+                                 if(lastMatchedIndexInt == 0)                   { exhibitionReceivedNameAltString = "EXH_ZOD";}
+                            else if(lastMatchedIndexInt == 1)                   { exhibitionReceivedNameAltString = "EXH_BOD        ";}
                             return                                              lastMatchedIndexInt;
                     }
                     else if(tagRegisteredBool                                   == false){
-                            Serial.println                                      ("THIS CARD INDEX IS NOT REGISTERED.");
+                            //Serial.println                                    ("THIS CARD INDEX IS NOT REGISTERED.");
                             exhibitionReceivedNameAltString                     = "";
                             return                                              -1;
                     }
