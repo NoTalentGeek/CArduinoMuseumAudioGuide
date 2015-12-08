@@ -1,24 +1,21 @@
 #include                                "VS1053Object.h"
 
-#define                                 PIN_BREAKOUT_CS              10                         /*VS1053 chip select                pin.*/
-#define                                 PIN_BREAKOUT_DCS             8                          /*VS1053 data/command select        pin.*/
-#define                                 PIN_BREAKOUT_RESET           9                          /*VS1053 reset                      pin.*/
-#define                                 PIN_CARD_CS                  4                          /*VS1053 card chip select           pin.*/
-#define                                 PIN_DREQ                     3                          /*VS1053 data request, interrupt    pin.*/
-#define                                 PIN_SHIELD_CS                7                          /*VS1053 chip select                pin.*/
-#define                                 PIN_SHIELD_DCS               6                          /*VS1053 data/command select        pin.*/
-#define                                 PIN_SHIELD_RESET            -1                          /*VS1053 reset                      pin.*/
+#define                                 PIN_BREAKOUT_CS                 10                          /*VS1053 chip select                pin.*/
+#define                                 PIN_BREAKOUT_DCS                8                           /*VS1053 data/command select        pin.*/
+#define                                 PIN_BREAKOUT_RESET              9                           /*VS1053 reset                      pin.*/
+#define                                 PIN_CARD_CS                     4                           /*VS1053 card chip select           pin.*/
+#define                                 PIN_DREQ                        3                           /*VS1053 data request, interrupt    pin.*/
 
-unsigned    int                         volumeInt                   = 20;                       /*Volume                                   of the VS1053.*/
-            int                         volumeResInt                = 5 ;                       /*Volume resolution per incrrease/decrease of the VS1053.*/
-            int                         volumeMaxInt                = 0 ;
-            int                         volumeMinInt                = 40;
-            Adafruit_VS1053_FilePlayer  filePlayerObject            =
+unsigned    int                         volumeInt                       = 20;                       /*Volume                                   of the VS1053.*/
+            int                         volumeResInt                    = 5 ;                       /*Volume resolution per incrrease/decrease of the VS1053.*/
+            int                         volumeMaxInt                    = 0 ;
+            int                         volumeMinInt                    = 40;
+            Adafruit_VS1053_FilePlayer  filePlayerObject                =
                                             Adafruit_VS1053_FilePlayer(
-                                                PIN_BREAKOUT_RESET  ,
-                                                PIN_BREAKOUT_CS     ,
-                                                PIN_BREAKOUT_DCS    ,
-                                                PIN_DREQ            ,
+                                                PIN_BREAKOUT_RESET      ,
+                                                PIN_BREAKOUT_CS         ,
+                                                PIN_BREAKOUT_DCS        ,
+                                                PIN_DREQ                ,
                                                 PIN_CARD_CS
                                             );
 
