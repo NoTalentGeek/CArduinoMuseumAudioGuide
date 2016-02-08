@@ -6,7 +6,7 @@
 #define                                 PIN_CARD_CS                     4                           /*VS1053 card chip select           pin.*/
 #define                                 PIN_DREQ                        3                           /*VS1053 data request, interrupt    pin.*/
 
-unsigned    int                         volumeInt                       = 20;                       /*Volume                                   of the VS1053.*/
+            int                         volumeInt                       = 20;                       /*Volume                                   of the VS1053.*/
             int                         volumeResInt                    = 5 ;                       /*Volume resolution per incrrease/decrease of the VS1053.*/
             int                         volumeMaxInt                    = 0 ;
             int                         volumeMinInt                    = 40;
@@ -38,11 +38,12 @@ void                        VS1053Object::SetupVoid                     (){
 }
 void                        VS1053Object::VolumeVoid                    (){
 
-                                if(volumeInt <= volumeMaxInt)           { volumeInt = volumeMaxInt; }
-                                if(volumeInt >= volumeMinInt)           { volumeInt = volumeMinInt; }
+                                     if(volumeInt <= volumeMaxInt)      { volumeInt = volumeMaxInt; }
+                                else if(volumeInt >= volumeMinInt)      { volumeInt = volumeMinInt; }
                                 filePlayerObject.setVolume              ( volumeInt, volumeInt);
 
 }
-void                        VS1053Object::VolumeDownVoid                (){ volumeInt = volumeInt + volumeResInt; VolumeVoid(); }
-void                        VS1053Object::VolumeUpVoid                  (){ volumeInt = volumeInt - volumeResInt; VolumeVoid(); }
-Adafruit_VS1053_FilePlayer& VS1053Object::GetAdafruitVS1053FilePlayer   (){ return filePlayerObject; }
+void                        VS1053Object::VolumeDownVoid                (){ filePlayerObject.sineTest(40, 50); volumeInt = volumeInt + volumeResInt; VolumeVoid(); }
+void                        VS1053Object::VolumeUpVoid                  (){ filePlayerObject.sineTest(60, 50); volumeInt = volumeInt - volumeResInt; VolumeVoid(); }
+int                         VS1053Object::GetVolumeInt                  (){ return volumeInt;           }
+Adafruit_VS1053_FilePlayer& VS1053Object::GetAdafruitVS1053FilePlayer   (){ return filePlayerObject;    }

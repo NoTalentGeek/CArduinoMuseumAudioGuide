@@ -5,8 +5,6 @@
 class       ButtonObject{
             public:
                         ButtonObject                (int            _buttonPinInt);
-                void    ButtonVolumeDownLoopVoid    (VS1053Object   _vs1053);
-                void    ButtonVolumeUpLoopVoid      (VS1053Object   _vs1053);
                 boolean ButtonPressedBoolean		();
             private:
                 bool    buttonStatePressedBool  ;

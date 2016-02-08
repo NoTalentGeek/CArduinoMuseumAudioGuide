@@ -5,11 +5,13 @@
         int             lastMatchedIndexInt                                     ;
 const   int             byteNettoInt                                            = 12;
 const   int             byteBruttoInt                                           = byteNettoInt + 4;
-const   int             tagAmountInt                                            = 2;
+const   int             tagAmountInt                                            = 4;
         char            tagUnknownCharArray[byteNettoInt]                       ;
         int             registeredTagIntArray[tagAmountInt][byteBruttoInt]      = {
+                            {54, 65, 48, 48, 52, 65, 48, 52, 48, 54, 50, 50},
                             {54, 65, 48, 48, 52, 65, 48, 66, 54, 57, 52, 50},
-                            {54, 65, 48, 48, 52, 65, 48, 52, 48, 54, 50, 50}
+                            {56, 53, 48, 48, 48, 68, 54, 57, 55, 69, 57, 70},
+                            {56, 53, 48, 48, 51, 48, 68, 52, 68, 57, 66, 56}
 };
         int             tagUnknownIntArray[byteNettoInt]                        ;
         SoftwareSerial  softwareSerialObject                                    = SoftwareSerial(13, 12);
@@ -37,14 +39,14 @@ int             RFIDReaderObject::LoopVoid                                      
                                 tagUnknownCharArray     [tagByteCounterInt] = tagByteReadInt;
                                 tagUnknownIntArray      [tagByteCounterInt] = tagByteReadInt;
                                 tagByteCounterInt                           ++;
-                                //Serial.print                              (tagByteReadInt);
-                                //if(tagByteCounterInt != byteNettoInt)     { Serial.print(" "); }
+                                Serial.print                              (tagByteReadInt);
+                                if(tagByteCounterInt != byteNettoInt)     { Serial.print(" "); }
                             }
                             if(
                                 tagByteReadInt      == 3
                             ){
                                 tagReadBool         =  false;
-                                //Serial.println    (".");
+                                Serial.println    (".");
                             }
                         }
                         }
@@ -81,8 +83,10 @@ int             RFIDReaderObject::LoopVoid                                      
                             //Serial.print                                      (tagCounterInt);
                             //Serial.println                                    (".");
                             lastMatchedIndexInt                                 =  tagCounterInt;
-                                 if(lastMatchedIndexInt == 0)                   { exhibitionReceivedNameAltString = "EXH_ZOD";}
-                            else if(lastMatchedIndexInt == 1)                   { exhibitionReceivedNameAltString = "EXH_BOD        ";}
+                                 if(lastMatchedIndexInt == 0)                   { exhibitionReceivedNameAltString = "EXH_ZOD"; }
+                            else if(lastMatchedIndexInt == 1)                   { exhibitionReceivedNameAltString = "EXH_BOD"; }
+                            else if(lastMatchedIndexInt == 2)                   { exhibitionReceivedNameAltString = "EXH_SPH"; }
+                            else if(lastMatchedIndexInt == 3)                   { exhibitionReceivedNameAltString = "EXH_USH"; }
                             return                                              lastMatchedIndexInt;
                     }
                     else if(tagRegisteredBool                                   == false){

@@ -72,10 +72,16 @@ void        loop                                                                
                 if(exhibitionReceiveIndexInt != -1)                             { exhibitionReceiveIndexSaveInt = exhibitionReceiveIndexInt; }      /*The the exhibition index value received from the RFID is -1 then do not process the value.                            */
                 MoveExhibitionVoid                                              ();                                                                 /*If the exhibition index value received is legit (not -1) then process with moving the player into new exhibition.     */
 
-                if( repeatButtonObject.ButtonPressedBoolean() == true &&
-                    stillCapturingBoolean == false)                             { RepeatInstructionVoid(initialBoolean); }
+                if( repeatButtonObject.ButtonPressedBoolean()       == true &&
+                    stillCapturingBoolean == false)                             { RepeatInstructionVoid(initialBoolean);    }
+                if( volumeDownButtonObject.ButtonPressedBoolean()   == true &&
+                    stillCapturingBoolean == false)                             { vs1053Object.VolumeDownVoid();            }
+                if( volumeUpButtonObject.ButtonPressedBoolean()     == true &&
+                    stillCapturingBoolean == false)                             { vs1053Object.VolumeUpVoid();              }
+                /*
                 volumeDownButtonObject                                          .ButtonVolumeDownLoopVoid   (vs1053Object);
                 volumeUpButtonObject                                            .ButtonVolumeUpLoopVoid     (vs1053Object);
+                */
 
                 /*Send instruction to software controller that this device has finished playing an audio file.*/
                 if( justDonePlayingAudioFileBoolean    == true ){
