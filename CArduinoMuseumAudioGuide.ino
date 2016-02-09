@@ -55,7 +55,9 @@ void        setup                                                               
                 Serial                                                          .begin(9600);                       /*Initiate Sereial connection.                                          */
                 rfidReaderObject                                                .SetupVoid();                       /*Setup the RFID component.                                             */
                 vs1053Object                                                    .SetupVoid();                       /*Setup the VS1053 audio player.                                        */
-                EstablishProcessingConnection                                   ();                                 /*Establish handshake connection for software controller.               */
+                //EstablishProcessingConnection                                 ();                                 /*Establish handshake connection for software controller.               */
+
+                Serial.println("HANDSHAKE");
 
                 /*Play the file and welcome the visitor for the first time he/she enter the museum.*/
                 vs1053Object.GetAdafruitVS1053FilePlayer().playFullFile         (audioFileWelcomeToCharArray);
@@ -85,7 +87,7 @@ void        loop                                                                
 
                 /*Send instruction to software controller that this device has finished playing an audio file.*/
                 if( justDonePlayingAudioFileBoolean    == true ){
-                    Serial                                                      .println("DONE_PLAYING_AUDIO_FILE");
+                    Serial                                                      .println("O"); /*DONE_PLAYING_AUDIO_FILE*/
                     justDonePlayingAudioFileBoolean                             =  false;
                 }
 
@@ -94,9 +96,9 @@ void        loop                                                                
                     String   inputString                                                = Serial.readString();
 
                     if      (
-                                (inputString                                            == "PLAY_EXHIBITION"            ) &&
-                                (justDonePlayingAudioFileBoolean                        == false                        ) &&
-                                (stillCapturingBoolean                                  == true                         )
+                                (inputString                                            == "Q"      ) && /*PLAY_EXHIBITION*/
+                                (justDonePlayingAudioFileBoolean                        == false    ) &&
+                                (stillCapturingBoolean                                  == true     )
                             ){
 
                                 vs1053Object.GetAdafruitVS1053FilePlayer()              .playFullFile   (audioFileExhibitionCharArray);
@@ -106,9 +108,9 @@ void        loop                                                                
                     }
 
                     if      (
-                                (inputString                                            == "PLAY_EXHIBITION_VISITED"    ) &&
-                                (justDonePlayingAudioFileBoolean                        == false                        ) &&
-                                (stillCapturingBoolean                                  == true                         )
+                                (inputString                                            == "W"      ) && /*PLAY_EXHIBITION_VISITED*/
+                                (justDonePlayingAudioFileBoolean                        == false    ) &&
+                                (stillCapturingBoolean                                  == true     )
                             ){
 
                                 vs1053Object.GetAdafruitVS1053FilePlayer()              .playFullFile   (AudioIndexCharArray(exhibitionReceiveIndexSaveInt + 1));
@@ -124,9 +126,9 @@ void        loop                                                                
                     }
 
                     if      (
-                                (inputString                                            == "PLAY_EXPLANATION"           ) &&
-                                (justDonePlayingAudioFileBoolean                        == false                        ) &&
-                                (stillCapturingBoolean                                  == true                         )
+                                (inputString                                            == "E"      ) && /*PLAY_EXPLANATION*/
+                                (justDonePlayingAudioFileBoolean                        == false    ) &&
+                                (stillCapturingBoolean                                  == true     )
                             ){
 
                                 vs1053Object.GetAdafruitVS1053FilePlayer()              .playFullFile   (audioFileExplanationCharArray);
@@ -136,9 +138,9 @@ void        loop                                                                
                     }
 
                     if      (
-                                (inputString                                            == "PLAY_OR"                    ) &&
-                                (justDonePlayingAudioFileBoolean                        == false                        ) &&
-                                (stillCapturingBoolean                                  == true                         )
+                                (inputString                                            == "R"      ) && /*PLAY_OR*/
+                                (justDonePlayingAudioFileBoolean                        == false    ) &&
+                                (stillCapturingBoolean                                  == true     )
                             ){
 
                                 vs1053Object.GetAdafruitVS1053FilePlayer()              .playFullFile(audioFileOrCharArray);
@@ -148,9 +150,9 @@ void        loop                                                                
                     }
 
                     if      (
-                                (inputString                                            == "PLAY_PLEASE_VISIT_AND_TAP"  ) &&
-                                (justDonePlayingAudioFileBoolean                        == false                        ) &&
-                                (stillCapturingBoolean                                  == true                         )
+                                (inputString                                            == "T"      ) && /*PLAY_PLEASE_VISIT_AND_TAP*/
+                                (justDonePlayingAudioFileBoolean                        == false    ) &&
+                                (stillCapturingBoolean                                  == true     )
                             ){
 
                                 vs1053Object.GetAdafruitVS1053FilePlayer()              .playFullFile(audioFilePleaseVisitAndTapCharArray);
@@ -160,9 +162,9 @@ void        loop                                                                
                     }
 
                     if      (
-                                (inputString                                            == "PLAY_WELCOME"               ) &&
-                                (justDonePlayingAudioFileBoolean                        == false                        ) &&
-                                (stillCapturingBoolean                                  == true                         )
+                                (inputString                                            == "Y"      ) && /*PLAY_WELCOME*/
+                                (justDonePlayingAudioFileBoolean                        == false    ) &&
+                                (stillCapturingBoolean                                  == true     )
                             ){
 
                                 vs1053Object.GetAdafruitVS1053FilePlayer()              .playFullFile(audioFileWelcomeToCharArray);
@@ -171,19 +173,19 @@ void        loop                                                                
 
                     }
 
-                    if      (inputString == "CAPTURE_DONE"){
+                    if      (inputString == "U"){ /*CAPTURE_DONE*/
                                 stillCapturingBoolean                                   =  false;
                                 delay                                                   (300);
                                 justDonePlayingAudioFileBoolean                         =  true;
 
                                 int indexInt                                            =  0;
                                 while(repeatInstructionCharPointerQueueList .isEmpty()  == false) {
-                                    repeatInstructionCharPointerArray[indexInt]         =  repeatInstructionCharPointerQueueList .pop();
+                                    repeatInstructionCharPointerArray[indexInt]         =  repeatInstructionCharPointerQueueList.pop();
                                     indexInt                                            ++;
                                 }
                     }
 
-                    if      (inputString == "CAPTURE_START"){
+                    if      (inputString == "I"){ /*CAPTURE_START*/
 
                                 stillCapturingBoolean                                   =  true;
                                 delay                                                   (300);
@@ -191,7 +193,7 @@ void        loop                                                                
 
                                 initialBoolean                                          =  false;
                                 exhibitionTargetFillInCounterInt                        =  0;
-                                while(repeatInstructionCharPointerQueueList .isEmpty()  == false) { repeatInstructionCharPointerQueueList .pop(); }
+                                while(repeatInstructionCharPointerQueueList .isEmpty()  == false) { repeatInstructionCharPointerQueueList.pop(); }
 
                     }
 
@@ -253,10 +255,14 @@ void        EstablishProcessingConnection                                       
 void        MoveExhibitionVoid                                                  (){
 
                 if(exhibitionReceiveIndexInt != -1){
+                    Serial.println  (rfidReaderObject.GetExhibitionReceivedNameAltString());
+                    delay           (300);
+                    /*
                     Serial.println  ("SENT_PLAYER_IND_XXX="                     + String(playerIndexInt)                                );
                     delay           (300);
                     Serial.println  ("SENT_PLAYER_EXH_NXT="                     + rfidReaderObject.GetExhibitionReceivedNameAltString() );
                     delay           (300);
+                    */
                 }
 
 }

@@ -39,14 +39,14 @@ int             RFIDReaderObject::LoopVoid                                      
                                 tagUnknownCharArray     [tagByteCounterInt] = tagByteReadInt;
                                 tagUnknownIntArray      [tagByteCounterInt] = tagByteReadInt;
                                 tagByteCounterInt                           ++;
-                                Serial.print                              (tagByteReadInt);
-                                if(tagByteCounterInt != byteNettoInt)     { Serial.print(" "); }
+                                //Serial.print                              (tagByteReadInt);
+                                //if(tagByteCounterInt != byteNettoInt)     { Serial.print(" "); }
                             }
                             if(
                                 tagByteReadInt      == 3
                             ){
                                 tagReadBool         =  false;
-                                Serial.println    (".");
+                                //Serial.println      (".");
                             }
                         }
                         }
@@ -83,10 +83,10 @@ int             RFIDReaderObject::LoopVoid                                      
                             //Serial.print                                      (tagCounterInt);
                             //Serial.println                                    (".");
                             lastMatchedIndexInt                                 =  tagCounterInt;
-                                 if(lastMatchedIndexInt == 0)                   { exhibitionReceivedNameAltString = "EXH_ZOD"; }
-                            else if(lastMatchedIndexInt == 1)                   { exhibitionReceivedNameAltString = "EXH_BOD"; }
-                            else if(lastMatchedIndexInt == 2)                   { exhibitionReceivedNameAltString = "EXH_SPH"; }
-                            else if(lastMatchedIndexInt == 3)                   { exhibitionReceivedNameAltString = "EXH_USH"; }
+                                 if(lastMatchedIndexInt == 0)                   { exhibitionReceivedNameAltString = "EXH_001"; }
+                            else if(lastMatchedIndexInt == 1)                   { exhibitionReceivedNameAltString = "EXH_002"; }
+                            else if(lastMatchedIndexInt == 2)                   { exhibitionReceivedNameAltString = "EXH_003"; }
+                            else if(lastMatchedIndexInt == 3)                   { exhibitionReceivedNameAltString = "EXH_004"; }
                             return                                              lastMatchedIndexInt;
                     }
                     else if(tagRegisteredBool                                   == false){
@@ -98,4 +98,5 @@ int             RFIDReaderObject::LoopVoid                                      
                 }
 
 }
-String          RFIDReaderObject::GetExhibitionReceivedNameAltString            (){ return exhibitionReceivedNameAltString; }
+int             RFIDReaderObject::GetLastMatchedIndexInt                        (){ return lastMatchedIndexInt              ; }
+String          RFIDReaderObject::GetExhibitionReceivedNameAltString            (){ return exhibitionReceivedNameAltString  ; }

@@ -6,10 +6,11 @@
 class       RFIDReaderObject{
 
             public:
-                        RFIDReaderObject    				();
-                void 	SetupVoid  							();
-                int     LoopVoid            				(bool _playingBool);
-                String 	GetExhibitionReceivedNameAltString 	();
+                        RFIDReaderObject                    ();
+                void    SetupVoid                           ();
+                int     LoopVoid                            (bool _playingBool);
+                int     GetLastMatchedIndexInt              ();
+                String  GetExhibitionReceivedNameAltString  ();
 
 };
 #endif
