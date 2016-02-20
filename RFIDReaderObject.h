@@ -8,7 +8,7 @@ class       RFIDReaderObject{
             public:
                         RFIDReaderObject                    ();
                 void    SetupVoid                           ();
-                int     LoopVoid                            (bool _playingBool);
+                int     LoopInt                            (bool _playingBool);
                 int     GetLastMatchedIndexInt              ();
                 String  GetExhibitionReceivedNameAltString  ();
 
