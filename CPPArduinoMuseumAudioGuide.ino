@@ -55,7 +55,7 @@ void        setup                                                               
                 Serial                                                          .begin(9600);                       /*Initiate Sereial connection.                                          */
                 rfidReaderObject                                                .SetupVoid();                       /*Setup the RFID component.                                             */
                 vs1053Object                                                    .SetupVoid();                       /*Setup the VS1053 audio player.                                        */
-                //EstablishProcessingConnection                                 ();                                 /*Establish handshake connection for software controller.               */
+                //EstablishProcessingConnection                                 ();
 
                 Serial.println("HANDSHAKE");
 
