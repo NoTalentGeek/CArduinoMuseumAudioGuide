@@ -40,15 +40,6 @@ RFIDReaderObject::RFIDReaderObject(){}
 
 
 /*==================================================
-This setup function is just to start software serial connection.*/
-void RFIDReaderObject::SetupVoid(){ softwareSerialObject.begin(9600); }
-/*==================================================*/
-
-
-
-
-
-/*==================================================
 Function to handle basic loop of this object.*/
 int RFIDReaderObject::LoopInt(bool _playingBool){
 
@@ -196,4 +187,14 @@ int RFIDReaderObject::GetLastMatchedIndexInt(){ return lastMatchedIndexInt; }
 
 /*==================================================*/
 String RFIDReaderObject::GetExhibitionReceivedNameAltString(){ return exhibitionReceivedNameAltString; }
+/*==================================================*/
+
+
+
+
+
+
+/*==================================================
+This setup function is just to start software serial connection.*/
+void RFIDReaderObject::SetupVoid(){ softwareSerialObject.begin(9600); }
 /*==================================================*/

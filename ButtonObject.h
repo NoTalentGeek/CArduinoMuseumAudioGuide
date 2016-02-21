@@ -15,8 +15,8 @@
 class ButtonObject{
 
     public:
-        ButtonObject(int _buttonPinInt);
         boolean ButtonPressedBoolean();
+        ButtonObject(int _buttonPinInt);
 
     private:
         bool buttonStatePressedBool;
